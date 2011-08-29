@@ -1,0 +1,41 @@
+Apex-Pagination is a project devoted to pagination patterns on the Force.com platform.
+
+From simple StandardSetController pagination to complex search and sort, these classes should help you provide pagination control in your simplest and most complex projects.
+
+Installation
+------------
+To install, simply download the zip and use ANT or Force.com IDE to install these classes, components, pages and static resources.
+
+Alternatively, you can also add them by hand to your org as required. See examples below for required files.
+
+
+Examples
+--------
+Example 1 - Standard Pagination
+  required files
+    StandardPaginationController.cls
+    StandardPaginator.component
+    Waiting.gif
+  example page
+    PageAccounts.page
+
+  Simply update PageAccounts with your SObject and VF markup
+
+Example 2 - Search, Sort and Pagination
+  required files
+    DynamicListController.cls
+    AccountListController.cls
+    DynamicPaginator.component
+    SortHeader.component
+    Waiting.gif
+  example page
+    SearchAccounts.page
+
+  Simply update SearchAccounts with your SObject and VF markup. 
+  To add add new search criteria, 
+  a) add new public properties to AccountListController, and
+  b) copy and override getWhereClause() from DynamicListController in AccountListController 
+
+Good luck and please post questions and suggestions to this github project. Thanks!
+
+
