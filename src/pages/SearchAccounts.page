@@ -1,0 +1,48 @@
+<apex:page controller="AccountListController" tabStyle="Account">
+    <apex:outputPanel id="accountsPanel">
+        <apex:form >
+            <apex:pageBlock title="Accounts">
+    
+                <!-- filter -->
+                <apex:commandButton value="Search" action="{!search}"/>
+                <apex:inputText value="{!nameSearchFld}"/>
+                <!-- end filter -->
+    
+                <!-- pagination controls -->
+                <c:DynamicPaginator pController="{!controller}" panel="accountsPanel"/>
+    
+                <!-- list view -->
+                <apex:pageBlockTable value="{!accounts}" var="account">
+                    <apex:column styleClass="actionColumn">
+                        <apex:facet name="header">Action</apex:facet>
+                        <apex:outputLink value="{!URLFOR($Action.Account.Edit, account.Id)}" styleClass="actionLink">Edit</apex:outputLink>
+                        |&nbsp;
+                        <apex:outputLink value="{!URLFOR($Action.Account.Delete, account.Id)}" styleClass="actionLink" onclick="return window.confirm('Are you sure?');">Del</apex:outputLink>
+                        |&nbsp;
+                        <chatter:follow entityId="{!account.Id}"/>
+                    </apex:column>
+    
+                    <apex:column >
+                        <!-- sort header -->
+                        <apex:facet name="header">
+                            <c:SortHeader sController="{!controller}" header="Name" column="Name" panel="accountsPanel"/>
+                        </apex:facet>
+                        <!-- end sort header -->
+    
+                        <apex:outputLink value="{!URLFOR($Action.Account.View, account.Id)}">{!account.Name}</apex:outputLink>
+                    </apex:column>
+    
+                    <apex:column >
+                        <apex:facet name="header">
+                            <c:SortHeader sController="{!controller}" header="Created Date" column="CreatedDate" panel="accountsPanel"/>
+                        </apex:facet>
+                        <apex:outputField value="{!account.CreatedDate}"/>
+                    </apex:column>
+    
+                </apex:pageBlockTable>
+                <!-- end list view -->
+    
+            </apex:pageBlock>
+        </apex:form>
+    </apex:outputPanel>
+</apex:page>

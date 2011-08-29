@@ -1,0 +1,63 @@
+<apex:component >
+    <apex:attribute name="setController" description="StandardSetController that requires pagination" type="ApexPages.StandardSetController" required="true"/>
+    <apex:attribute name="paginationController" description="Paginator that provides additional set methods" type="StandardPaginationController" required="true"/>
+    <!-- pagination controls -->
+    <table width="100%">
+        <tr>
+            <td>
+                <div class="paginator">
+                    <span class="left">
+                        <apex:actionStatus id="status">
+                            <apex:facet name="start">
+                                <apex:image value="{!$Resource.Waiting}"/>
+                            </apex:facet>
+                        </apex:actionStatus>
+                        <apex:outputText >page {!IF(paginationController.pageCount=0, 0, setController.pageNumber)} of {!paginationController.pageCount} ({!setController.resultSize} records total)</apex:outputText>
+                    </span>
+                    <span class="prevNextLinks">
+                        <apex:commandLink action="{!setController.first}" rendered="{!setController.hasPrevious}" rerender="resultsPanel" status="status">
+                            <span class="prevNext"><apex:image value="/s.gif" styleClass="first"/></span>
+                        </apex:commandlink>
+                        <apex:outputPanel rendered="{!!setController.hasPrevious}">
+                            <span class="prevNext"><apex:image value="/s.gif" styleClass="firstoff"/></span>
+                        </apex:outputPanel>
+                        <apex:commandLink action="{!setController.previous}" rendered="{!setController.hasPrevious}" rerender="resultsPanel" status="status">
+                            <span class="prevNext"><apex:image value="/s.gif" styleClass="prev"/></span>
+                            Previous
+                        </apex:commandlink>
+                        <apex:outputPanel rendered="{!!setController.hasPrevious}">
+                            <span class="prevNext"><apex:image value="/s.gif" styleClass="prevoff"/></span>
+                            Previous
+                        </apex:outputPanel>
+                        <apex:commandLink action="{!setController.next}" rendered="{!setController.hasNext}" rerender="resultsPanel" status="status">
+                            Next
+                            <span class="prevNext"><apex:image value="/s.gif" styleClass="next"/></span>
+                        </apex:commandlink>
+                        <apex:outputPanel rendered="{!!setController.hasNext}">
+                            Next
+                            <span class="prevNext"><apex:image value="/s.gif" styleClass="nextoff"/></span>
+                        </apex:outputPanel>
+                        <apex:commandLink action="{!setController.last}" rendered="{!setController.hasNext}" rerender="resultsPanel" status="status">
+                            <span class="prevNext"><apex:image value="/s.gif" styleClass="last"/></span>
+                        </apex:commandlink>
+                        <apex:outputPanel rendered="{!!setController.hasNext}">
+                            <span class="prevNext"><apex:image value="/s.gif" styleClass="lastoff"/></span>
+                        </apex:outputPanel>
+                    </span>
+                    <span class="right">
+                        <apex:outputLabel value="Page Size" for="pageSizeOptions"/>
+                        <apex:selectList value="{!setController.pageSize}" size="1" id="pageSizeOptions">
+                            <apex:selectOption itemValue="2" itemLabel="2"/>
+                            <apex:selectOption itemValue="5" itemLabel="5"/>
+                            <apex:selectOption itemValue="10" itemLabel="10"/>
+                            <apex:selectOption itemValue="20" itemLabel="20"/>
+                            <apex:selectOption itemValue="50" itemLabel="50"/>
+                            <apex:actionSupport event="onchange" rerender="resultsPanel" status="status"/>
+                        </apex:selectList>
+                    </span>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <!-- end pagination controls -->
+</apex:component>

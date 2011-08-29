@@ -1,0 +1,23 @@
+<apex:page standardController="Account" recordSetVar="accounts" extensions="StandardPaginationController">
+    <apex:outputPanel id="resultsPanel">
+        <apex:form>
+            <apex:pageBlock title="Accounts">
+
+                <!-- pagination controls -->
+                <c:StandardPaginator setController="{!standardSetController}" paginationController="{!paginationController}" panel="resultsPanel"/>
+
+                <!-- list view -->
+                <apex:pageBlockTable value="{!accounts}" var="account">
+                    <apex:column headerValue="Name">
+                        <apex:outputField value="{!account.Name}"/>
+                    </apex:column>
+                    <apex:column headerValue="Created Date">
+                        <apex:outputField value="{!account.CreatedDate}"/>
+                    </apex:column>
+                </apex:pageBlockTable>
+                <!-- end list view -->
+
+            </apex:pageBlock>
+        </apex:form>
+    </apex:outputPanel>
+</apex:page>
